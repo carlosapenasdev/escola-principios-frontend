@@ -2,6 +2,7 @@ import { createStore } from 'vuex'
 
 import users from './modules/users'
 import courses from './modules/courses'
+import turmas from './modules/turmas'
 import supports from './modules/supports'
 
 export default createStore({
@@ -20,6 +21,7 @@ export default createStore({
   modules: {
     users,
     courses,
+    turmas,
     supports,
   }
 })

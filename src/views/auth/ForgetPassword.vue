@@ -28,7 +28,7 @@
                 <div class="login">
                     <div class="content">
                         <span class="logo"
-                            ><img :src="['./assets/images/logoDark.svg']" alt="" />
+                            ><img :src="['./assets/images/logoDark.png']" alt="" />
                         </span>
                         <span>
                             <p>Seja muito bem vindo!</p>
