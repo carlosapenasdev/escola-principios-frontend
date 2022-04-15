@@ -5,21 +5,28 @@
         <img src="images/icons/laravel.svg" alt="" />
       </span>
       <span class="title">{{ lesson.name }}</span>
-      <router-link :to="{name: 'campus.home'}" class="btn laravel">
+      <router-link :to="{ name: 'campus.home' }" class="btn laravel">
         <i class="fas fa-chevron-left"></i>
         Voltar
       </router-link>
     </div>
-    <iframe
+    <!-- youtube iframe with progressive enhancement (extra queries after the url to optimize the embed) -->
+    <vue-plyr
       v-if="lesson.video"
-      width="100%"
-      height="auto"
-      :src="lesson.video.replace('watch?v=', 'embed/')+'?modestbranding=1&autohide=1&showinfo=0&controls=0&autoplay=1&rel=0&fs=0'"
-      :title="lesson.name"
-      frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowfullscreen
-    ></iframe>
+      ref="plyr"
+      @player="setPlayer"
+      :options="options"
+    >
+      <div class="plyr__video-embed">
+        <iframe
+          ref="ifram"
+          :src="lesson.video"
+          allowfullscreen
+          allowtransparency
+          allow="autoplay"
+        ></iframe>
+      </div>
+    </vue-plyr>
   </div>
 
   <div class="description-lesson" v-if="lesson.description">
@@ -28,29 +35,57 @@
 </template>
 
 <script>
-import { computed, watch } from 'vue'
-import { useStore } from 'vuex'
-
+import { computed, watch, ref } from "vue";
+import { useStore } from "vuex";
+import VuePlyr from 'vue-plyr';
+import 'vue-plyr/dist/vue-plyr.css';
 export default {
-    name: 'Player',
-    setup() {
-      
-      const store = useStore()
+  name: "Player",
+  components:{
+    VuePlyr
+  },
+  setup() {
+    const store = useStore();
+    
+    const plyr = ref(null);
 
-      const lesson = computed(() => store.state.courses.lessonPlayer)
-
-      watch(() => store.state.courses.lessonPlayer, () => {
-        if (lesson.value.id != ''){
-          setTimeout(function(){
-            store.dispatch('markLessonViewed')
-            console.log('teste');
-          }, 3000)
+    watch(
+      () => store.state.courses.lessonPlayer,
+      () => {
+        if(plyr.value !== null)
+        {
+          const lesson = computed(() => store.state.courses.lessonPlayer);
+          let player = plyr.value.player
+          player.source = {
+            type: 'video',
+            sources: [
+              {
+                src: lesson.value.video,
+                provider: 'youtube',
+              },
+            ],
+          }
+          player.on('ended', (event) => {
+            //const instance = event.detail.plyr;
+            console.log(event)
+          });
         }
-      })
-
-      return {
-        lesson
       }
-    }
-}
+    );
+    return {
+      plyr,
+    };
+  },
+  data() {
+    const store = useStore();
+    const lesson = computed(() => store.state.courses.lessonPlayer);
+    return {
+      lesson: lesson,
+      player: {},
+    };
+  },
+  mounted () {
+    console.log('mounted player')
+  }
+};
 </script>

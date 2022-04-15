@@ -53,6 +53,7 @@ export default {
         const toggleModule = (moduleId) => showModule.value = moduleId
 
         const addLessonInPlayer = (lesson) => {
+          lesson.video = lesson.video.replace('watch?v=', 'embed/');
           store.commit('SET_LESSON_PLAYER', lesson)
         }
 
@@ -65,5 +66,8 @@ export default {
           lessonInPlayer,
         }
     },
+  mounted () {
+    console.log('mounted modules')
+  }
 }
 </script>
