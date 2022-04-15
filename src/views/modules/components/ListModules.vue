@@ -39,7 +39,7 @@ import { useStore } from 'vuex'
 import { computed, ref } from 'vue'
 
 export default {
-    name: 'Modules',
+    name: 'ListModules',
     setup() {
         const store = useStore()
 
@@ -47,18 +47,15 @@ export default {
 
         const lessonInPlayer = computed(() => store.state.courses.lessonPlayer)
 
-        // const course = computed(() => store.state.courses.courseSelected)
         const modules = computed(() => store.state.courses.courseSelected.modules)
 
         const toggleModule = (moduleId) => showModule.value = moduleId
 
         const addLessonInPlayer = (lesson) => {
-          lesson.video = lesson.video.replace('watch?v=', 'embed/');
           store.commit('SET_LESSON_PLAYER', lesson)
         }
 
         return {
-          // course,
           modules,
           showModule,
           toggleModule,

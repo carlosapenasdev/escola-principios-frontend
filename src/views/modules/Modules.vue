@@ -12,14 +12,10 @@
         <div class="content">
             <div class="container">
                 
-                <modules/>
+                <ListModules/>
 
                 <div class="right">
                     <div class="content">
-                        
-                        <player/>
-
-                        <supports-lesson/>
                     </div>
                 </div>
             </div>
@@ -31,13 +27,11 @@
 import { useStore } from 'vuex'
 import { computed } from 'vue'
 
-import Modules from './components/Modules.vue'
-import Player from './components/Player.vue'
-import SupportsLesson from './components/Supports.vue'
+import ListModules from './components/ListModules.vue'
 import router from "@/router"
 
 export default {
-    name: 'ModulesAndLessons',
+    name: 'Modules',
     setup() {
         const store = useStore()
 
@@ -52,9 +46,7 @@ export default {
         }
     },
     components: {
-        Modules,
-        Player,
-        SupportsLesson
+        ListModules
     }
 }
 </script>

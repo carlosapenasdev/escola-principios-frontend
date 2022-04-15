@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '@/views/home/Home.vue'
 import Turma from '@/views/turmas/Turmas.vue'
 import MySupports from '@/views/supports/MySupports.vue'
-import ModulesAndLessons from '@/views/modules/ModulesAndLessons.vue'
+import Modules from '@/views/modules/Modules.vue'
 import Auth from '@/views/auth/Auth.vue'
 import ForgetPassword from '@/views/auth/ForgetPassword.vue'
 import ResetPassword from '@/views/auth/ResetPassword.vue'
@@ -18,8 +18,14 @@ const routes = [
         {
           path: 'modulos',
           name: 'campus.modules',
-          component: ModulesAndLessons
-        }, {
+          component: Modules
+        },
+        // {
+        //   path: 'aula',
+        //   name: 'campus.aulas',
+        //   component: Lessons
+        // },
+        {
           path: 'minhas-duvidas',
           name: 'campus.my.supports',
           component: MySupports,
