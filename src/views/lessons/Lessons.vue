@@ -41,19 +41,22 @@ export default {
         const store = useStore()
 
         const course = computed(() => store.state.courses.courseSelected)
+        const showModule = computed(() => store.state.courses.moduleOpen).value
 
         if (course.value.id === '') {
             router.push({name: 'campus.home'})
         }
 
         return {
-            course
+            course,
+            showModule
         }
     },
     components: {
         Player,
         SupportsLesson,
-        ListModules
+        ListModules,
+        
     }
 }
 </script>

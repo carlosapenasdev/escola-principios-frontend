@@ -7,6 +7,10 @@ const mutations = {
         state.courseSelected = course
     },
 
+    SET_MODULE_OPEN (state, module) {
+        state.moduleOpen = module
+    },
+
     SET_LESSON_PLAYER (state, lesson) {
         state.lessonPlayer = lesson
     },

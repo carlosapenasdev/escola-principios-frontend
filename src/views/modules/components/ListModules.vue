@@ -44,7 +44,11 @@ export default {
     setup() {
         const store = useStore()
 
-        const showModule = ref('0')
+        let showModule = ref('0')
+        let showModuleAs = computed(() => store.state.courses.moduleOpen).value
+        
+        if(showModuleAs !== undefined)
+          showModule = showModuleAs
 
         const lessonInPlayer = computed(() => store.state.courses.lessonPlayer)
 
@@ -54,6 +58,7 @@ export default {
 
         const addLessonInPlayer = (lesson) => {
           store.commit('SET_LESSON_PLAYER', lesson)
+          store.commit('SET_MODULE_OPEN', showModule)
           router.push({name: 'campus.aulas'})
         }
 

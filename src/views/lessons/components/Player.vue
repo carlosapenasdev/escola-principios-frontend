@@ -48,7 +48,6 @@ export default {
     const store = useStore();
     
     const plyr = ref(null);
-
     watch(
       () => store.state.courses.lessonPlayer,
       () => {
@@ -81,7 +80,6 @@ export default {
     };
   },
   mounted () {
-    console.log('mounted player')
     let player = this.$refs.plyr.player
     player.on('ended', () => {
       const store = this.$store
