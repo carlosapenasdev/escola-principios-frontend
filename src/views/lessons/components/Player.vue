@@ -65,10 +65,6 @@ export default {
               },
             ],
           }
-          player.on('ended', (event) => {
-            //const instance = event.detail.plyr;
-            console.log(event)
-          });
         }
       }
     );
@@ -86,6 +82,11 @@ export default {
   },
   mounted () {
     console.log('mounted player')
+    let player = this.$refs.plyr.player
+    player.on('ended', () => {
+      const store = this.$store
+      store.dispatch('markLessonViewed')
+    });
   }
 };
 </script>

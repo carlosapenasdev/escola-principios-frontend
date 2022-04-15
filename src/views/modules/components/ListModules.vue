@@ -37,6 +37,7 @@
 <script>
 import { useStore } from 'vuex'
 import { computed, ref } from 'vue'
+import router from '@/router'
 
 export default {
     name: 'ListModules',
@@ -53,6 +54,7 @@ export default {
 
         const addLessonInPlayer = (lesson) => {
           store.commit('SET_LESSON_PLAYER', lesson)
+          router.push({name: 'campus.aulas'})
         }
 
         return {
@@ -62,9 +64,6 @@ export default {
           addLessonInPlayer,
           lessonInPlayer,
         }
-    },
-  mounted () {
-    console.log('mounted modules')
-  }
+    }
 }
 </script>

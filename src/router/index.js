@@ -3,6 +3,7 @@ import Home from '@/views/home/Home.vue'
 import Turma from '@/views/turmas/Turmas.vue'
 import MySupports from '@/views/supports/MySupports.vue'
 import Modules from '@/views/modules/Modules.vue'
+import Lessons from '@/views/lessons/Lessons.vue'
 import Auth from '@/views/auth/Auth.vue'
 import ForgetPassword from '@/views/auth/ForgetPassword.vue'
 import ResetPassword from '@/views/auth/ResetPassword.vue'
@@ -20,11 +21,11 @@ const routes = [
           name: 'campus.modules',
           component: Modules
         },
-        // {
-        //   path: 'aula',
-        //   name: 'campus.aulas',
-        //   component: Lessons
-        // },
+        {
+          path: 'aula',
+          name: 'campus.aulas',
+          component: Lessons
+        },
         {
           path: 'minhas-duvidas',
           name: 'campus.my.supports',
