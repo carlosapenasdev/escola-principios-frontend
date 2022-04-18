@@ -10,23 +10,23 @@
         Voltar
       </router-link>
     </div>
-    <!-- youtube iframe with progressive enhancement (extra queries after the url to optimize the embed) -->
-    <vue-plyr
-      v-if="lesson.video"
-      ref="plyr"
-      @player="setPlayer"
-      :options="options"
-    >
-      <div class="plyr__video-embed">
-        <iframe
-          ref="ifram"
-          :src="lesson.video"
-          allowfullscreen
-          allowtransparency
-          allow="autoplay"
-        ></iframe>
-      </div>
-    </vue-plyr>
+    <div class="videoSpace" v-if="lesson.video && turma.tipo == 'R'">
+      <vue-plyr
+        ref="plyr"
+        @player="setPlayer"
+        :options="options"
+      >
+        <div class="plyr__video-embed">
+          <iframe
+            ref="ifram"
+            :src="lesson.video"
+            allowfullscreen
+            allowtransparency
+            allow="autoplay"
+          ></iframe>
+        </div>
+      </vue-plyr>
+    </div>
   </div>
 
   <div class="description-lesson" v-if="lesson.description">
@@ -48,6 +48,7 @@ export default {
     const store = useStore();
     
     const plyr = ref(null);
+    const turma = computed(() => store.state.turmas.turmaSelected).value
     watch(
       () => store.state.courses.lessonPlayer,
       () => {
@@ -69,6 +70,7 @@ export default {
     );
     return {
       plyr,
+      turma,
     };
   },
   data() {
@@ -80,11 +82,14 @@ export default {
     };
   },
   mounted () {
-    let player = this.$refs.plyr.player
-    player.on('ended', () => {
-      const store = this.$store
-      store.dispatch('markLessonViewed')
-    });
+    if(this.$refs.plyr !== undefined)
+    {
+      let player = this.$refs.plyr.player
+      player.on('ended', () => {
+        const store = this.$store
+        store.dispatch('markLessonViewed')
+      });
+    }
   }
 };
 </script>

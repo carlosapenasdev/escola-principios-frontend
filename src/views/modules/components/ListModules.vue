@@ -48,13 +48,16 @@ export default {
         let showModuleAs = computed(() => store.state.courses.moduleOpen).value
         
         if(showModuleAs !== undefined)
-          showModule = showModuleAs
+          showModule.value = showModuleAs
 
         const lessonInPlayer = computed(() => store.state.courses.lessonPlayer)
 
         const modules = computed(() => store.state.courses.courseSelected.modules)
 
-        const toggleModule = (moduleId) => showModule.value = moduleId
+        const toggleModule = function (moduleId)
+        {
+            showModule.value = moduleId
+        } 
 
         const addLessonInPlayer = (lesson) => {
           store.commit('SET_LESSON_PLAYER', lesson)

@@ -283,11 +283,11 @@ body.page {
       justify-content: center;
       align-items: center;
       margin: 1rem 0;
+      font-size: 2em;
 
       .title {
         color: white;
         margin-bottom: 0.5rem;
-        font-size: 15px;
         padding: 0 1rem;
       }
 
@@ -561,9 +561,7 @@ section .container {
       border-radius: 10px;
 
       .training {
-        height: calc(100vh - #{$trainingSpace});
-        max-height: 755px;
-
+        
         .card {
           border-radius: 10px 10px 0 0;
           min-height: 60px;
@@ -596,18 +594,23 @@ section .container {
           }
         }
 
-        iframe {
-          height: calc(100vh - (#{$trainingSpace} + 60px));
-          max-height: 700px;
-          border-radius: 0 0 10px 10px;
-          background-color: black;
+        .videoSpace {
+          height: calc(90vh - #{$trainingSpace});
+          max-height: 755px;
+          
+          iframe {
+            height: calc(100vh - (#{$trainingSpace} + 60px));
+            max-height: 700px;
+            border-radius: 0 0 10px 10px;
+            background-color: black;
 
-          @include respond-to("extra-big") {
-            height: 470px;
-          }
+            @include respond-to("extra-big") {
+              height: 470px;
+            }
 
-          @include respond-to("big") {
-            height: 340px;
+            @include respond-to("big") {
+              height: 340px;
+            }
           }
         }
 

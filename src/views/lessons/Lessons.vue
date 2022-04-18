@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="pageTitle">
-            <span class="title">{{ course.name }} - Aula</span>
+            <span class="title">{{turma.referencia}} ({{turma.tipo_label}}) - {{turma.course.name}} - Aulas</span>
             <span class="dots">
                 <span></span>
                 <span></span>
@@ -41,7 +41,9 @@ export default {
         const store = useStore()
 
         const course = computed(() => store.state.courses.courseSelected)
-        const showModule = computed(() => store.state.courses.moduleOpen).value
+        const turma = computed(() => store.state.turmas.turmaSelected)
+
+        const showModule = computed(() => store.state.courses.moduleOpen)
 
         if (course.value.id === '') {
             router.push({name: 'campus.home'})
@@ -49,14 +51,14 @@ export default {
 
         return {
             course,
-            showModule
+            showModule,
+            turma,
         }
     },
     components: {
         Player,
         SupportsLesson,
         ListModules,
-        
     }
 }
 </script>

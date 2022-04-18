@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="pageTitle">
-            <span class="title">{{ course.name }}</span>
+            <span class="title">{{turma.referencia}} ({{turma.tipo_label}}) - {{turma.course.name}}</span>
             <span class="dots">
                 <span></span>
                 <span></span>
@@ -36,13 +36,14 @@ export default {
         const store = useStore()
 
         const course = computed(() => store.state.courses.courseSelected)
-
+        const turma = computed(() => store.state.turmas.turmaSelected)
         if (course.value.id === '') {
             router.push({name: 'campus.home'})
         }
 
         return {
-            course
+            course,
+            turma,
         }
     },
     components: {
