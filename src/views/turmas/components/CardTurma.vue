@@ -4,7 +4,7 @@
       <span class="icon">
         <img :src="[(turma.image != '' && turma.image != undefined) ? turma.image : require('@/assets/images/icons/default.png')]" :alt="title" />
       </span>
-      <span class="title">{{turma.referencia}} ({{turma.tipo_label}}) - {{turma.course.name}}</span>
+      <span class="title">{{turma.referencia}} - {{turma.course.name}}</span>
       <span class="action">
         <a href="#" @click.prevent="setTurma" :class="['btn', bgName]">Acessar</a>
       </span>

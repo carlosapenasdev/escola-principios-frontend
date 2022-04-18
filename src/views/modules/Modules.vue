@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="pageTitle">
-            <span class="title">{{turma.referencia}} ({{turma.tipo_label}}) - {{turma.course.name}}</span>
+            <span class="title">{{turma.referencia}} - {{course.name}}</span>
             <span class="dots">
                 <span></span>
                 <span></span>

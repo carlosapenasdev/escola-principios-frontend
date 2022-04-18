@@ -4,6 +4,8 @@ const state = {
     courseSelected: {
         id: '',
         name: '',
+        modalidade: '',
+        modalidade_label: '',
         modules: []
     },
 

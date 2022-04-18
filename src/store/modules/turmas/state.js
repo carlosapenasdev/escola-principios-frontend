@@ -4,8 +4,6 @@ const state = {
     turmaSelected: {
         id: '',
         course: '',
-        tipo: '',
-        tipo_label: '',
         nome: '',
         referencia: '',
     },

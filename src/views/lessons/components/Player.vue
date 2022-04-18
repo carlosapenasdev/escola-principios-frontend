@@ -10,7 +10,7 @@
         Voltar
       </router-link>
     </div>
-    <div class="videoSpace" v-if="lesson.video && turma.tipo == 'R'">
+    <div class="videoSpace" v-if="lesson.video && course.modalidade == 'R'">
       <vue-plyr
         ref="plyr"
         @player="setPlayer"
@@ -48,7 +48,7 @@ export default {
     const store = useStore();
     
     const plyr = ref(null);
-    const turma = computed(() => store.state.turmas.turmaSelected).value
+    const course = computed(() => store.state.courses.courseSelected).value
     watch(
       () => store.state.courses.lessonPlayer,
       () => {
@@ -70,7 +70,7 @@ export default {
     );
     return {
       plyr,
-      turma,
+      course,
     };
   },
   data() {
