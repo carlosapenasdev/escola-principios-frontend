@@ -31,15 +31,15 @@
                             ><img :src="['./assets/images/logoDark.png']" alt="" />
                         </span>
                         <span>
-                            <p>Seja muito bem vindo(a)!</p>
+                            <p class="welcome-p">Seja muito bem vindo(a)!</p>
                         </span>
                         <span class="dots">
                             <span></span>
                             <span></span>
                             <span></span>
                         </span>
-                        <span class="description">
-                            Acesse nossa plataforma e desfrute de cursos completos para o seu crescimento
+                        <span class="description presenca">
+                            Informe seus dados para registrarmos sua presença!
                         </span>
                         <form action="/dist/index.html" method="">
                             <div class="groupForm">
@@ -58,9 +58,9 @@
                                     loading ? 'loading' : ''
                                 ]"
                                 type="submit"
-                                >
-                                <span v-if="loading">Alterando...</span>
-                                <span v-else>Mudar Senha</span>
+                                @click.prevent="auth">
+                                <span v-if="loading">Entrando...</span>
+                                <span v-else>Registar Presença</span>
                             </button>
                         </form>
                     </div>
@@ -74,34 +74,77 @@
 </template>
 
 <script>
-import { ref } from 'vue'
-//import { notify } from "@kyvg/vue3-notification"
-//import router from '@/router'
-//import ResetPasswordService from '@/services/password.reset.service'
+import { computed, ref, watch } from 'vue'
+import { useStore } from 'vuex'
+import { notify } from "@kyvg/vue3-notification";
+import CourseService from '@/services/course.service'
+import router from '@/router'
 
 export default {
-    name: 'ResetPassword',
+    name: 'Presenca',
     props: {
         aula: {
             require: true,
         }
     },
     setup(props) {
+        const store = useStore()
         const email = ref("")
         const password = ref("")
         const loading = ref(false)
 
-        console.log(props)
+        const loadingStore = computed(() => store.state.loading)
+
+        watch(
+            () => store.state.users.loggedIn,
+            (loggedIn) => {
+                if (loggedIn) {
+                    //router.push({name: 'campus.home'})
+                }
+            }
+        )
 
         const typePassword = ref('password')
         const toggleShowPassword = () => typePassword.value = typePassword.value === 'password' ? 'text' : 'password'
 
+        const auth = () => {
+            loading.value = true
+
+            store.dispatch('auth', {
+                email: email.value,
+                password: password.value,
+                device_name: 'vue3_web'
+            })
+            //.then(() => router.push({name: 'campus.home'}))
+            .then(function(){
+                CourseService.markLessonViewed(props.aula)
+                .then(function(){
+                    router.push({name: 'campus.home'})
+                })
+            })
+            .catch(error => {
+                let msgError = 'Falha na requisição'
+
+                if (error.status === 422) msgError = 'Dados Inválidos'
+                if (error.status === 404) msgError = 'Usuário Não Encontrado'
+
+                notify({
+                    title: 'Falha ao autenticar',
+                    text: msgError,
+                    type: "warn"
+                });
+            })
+            .finally(() => loading.value = false)
+        }
+
         return {
+            auth,
             email,
             password,
             loading,
             typePassword,
-            toggleShowPassword
+            toggleShowPassword,
+            loadingStore,
         }
     }
 }

@@ -84,6 +84,10 @@ section#loginPage {
           align-items: center;
           padding: 0 2rem;
 
+          p.welcome-p{
+            font-size: 2em;
+          }
+
           span {
             font-size: 12px;
             text-align: center;
@@ -103,6 +107,7 @@ section#loginPage {
 
           .description {
             font-weight: 300;
+            font-size: 1em;
           }
 
           form {

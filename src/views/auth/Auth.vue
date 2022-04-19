@@ -31,7 +31,7 @@
                             ><img :src="['./assets/images/logoDark.png']" alt="" />
                         </span>
                         <span>
-                            <p>Seja muito bem vindo(a)!</p>
+                            <p class="welcome-p">Seja muito bem vindo(a)!</p>
                         </span>
                         <span class="dots">
                             <span></span>
