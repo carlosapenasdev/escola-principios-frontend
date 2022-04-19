@@ -594,9 +594,10 @@ section .container {
           }
         }
 
-        .videoSpace {
-          height: calc(90vh - #{$trainingSpace});
-          max-height: 755px;
+        .videoSpace, .qrcodeSpace {
+          #height: calc(90vh - #{$trainingSpace});
+          #max-height: 755px;
+          text-align: center;
           
           iframe {
             height: calc(100vh - (#{$trainingSpace} + 60px));
@@ -611,6 +612,11 @@ section .container {
             @include respond-to("big") {
               height: 340px;
             }
+          }
+          canvas{
+            padding-top: 5vh;
+            padding-bottom: 5vh;
+            text-align: center;
           }
         }
 

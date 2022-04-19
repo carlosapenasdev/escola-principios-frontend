@@ -27,6 +27,16 @@
         </div>
       </vue-plyr>
     </div>
+    <div class="qrcodeSpace" v-if="course.modalidade == 'P'">
+      <vue-qrcode
+        ref="qrcode"
+        v-if="lesson.id"
+        :key="lesson.id"
+        :value="origin+'/presenca/'+lesson.id"
+        :options="{ width: 200 }"
+      >
+      </vue-qrcode>
+    </div>
   </div>
 
   <div class="description-lesson" v-if="lesson.description">
@@ -38,23 +48,27 @@
 import { computed, watch, ref } from "vue";
 import { useStore } from "vuex";
 import VuePlyr from 'vue-plyr';
+import VueQrcode from '@chenfengyuan/vue-qrcode';
 import 'vue-plyr/dist/vue-plyr.css';
 export default {
   name: "Player",
   components:{
-    VuePlyr
+    VuePlyr,
+    VueQrcode
   },
   setup() {
     const store = useStore();
-    
+    const origin = window.location.origin;
     const plyr = ref(null);
     const course = computed(() => store.state.courses.courseSelected).value
     watch(
       () => store.state.courses.lessonPlayer,
       () => {
+
         if(plyr.value !== null)
         {
           const lesson = computed(() => store.state.courses.lessonPlayer);
+          
           let player = plyr.value.player
           player.source = {
             type: 'video',
@@ -71,6 +85,7 @@ export default {
     return {
       plyr,
       course,
+      origin,
     };
   },
   data() {
