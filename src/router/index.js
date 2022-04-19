@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '@/views/home/Home.vue'
 import Turma from '@/views/turmas/Turmas.vue'
 import MySupports from '@/views/supports/MySupports.vue'
 import Modules from '@/views/modules/Modules.vue'
@@ -34,11 +33,7 @@ const routes = [
           path: '',
           name: 'campus.home',
           component: Turma
-        },{
-          path: 'cursos',
-          name: 'campus.cursos',
-          component: Home
-        }
+        },
       ]
     },
     {
