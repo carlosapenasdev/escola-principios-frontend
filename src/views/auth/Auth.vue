@@ -86,6 +86,7 @@ import { useStore } from 'vuex'
 import { notify } from "@kyvg/vue3-notification";
 
 import router from '@/router'
+import { onBeforeMount } from 'vue'
 
 export default {
     name: 'Auth',
@@ -132,6 +133,10 @@ export default {
             })
             .finally(() => loading.value = false)
         }
+
+        onBeforeMount(() => {
+            document.title = 'EAD Renovo'
+        })
 
         return {
             auth,
