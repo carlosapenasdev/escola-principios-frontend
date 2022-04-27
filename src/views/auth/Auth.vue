@@ -5,7 +5,7 @@
         }">
         <div class="loginContent">
             <div class="loginCard">
-                <div class="decor" style="background-image: url('./assets/images/building.jpg');">
+                <div class="decor" style="">
                     <div class="content">
                         <span class="logo">
                             <img :src="require('@/assets/images/logo.png')" alt="Renovo">
