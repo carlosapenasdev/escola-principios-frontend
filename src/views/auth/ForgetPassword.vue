@@ -17,7 +17,7 @@
                         </span>
                         <span class="description">
                             <p>
-                                Mensagem sobre a escola de princípios
+                                Salvação, Temor a Deus e Palavra
                             </p>
                         </span>
                         <span class="copyright fontSmall">
