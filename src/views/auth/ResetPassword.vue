@@ -28,7 +28,7 @@
                 <div class="login">
                     <div class="content">
                         <span class="logo"
-                            ><img :src="require('@/assets/images/logoDark.png')" alt="Renovo">
+                            ><img :src="require('@/assets/images/logoDark.png')" alt="Renovo Dark">
                         </span>
                         <span>
                             <p>Seja muito bem vindo(a)!</p>
