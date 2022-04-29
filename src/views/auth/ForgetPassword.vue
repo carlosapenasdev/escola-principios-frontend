@@ -31,15 +31,24 @@
                             >
                         </span>
                         <span>
-                            <p>Seja muito bem vindo!</p>
+                            <p class="welcome-p">Esqueceu sua senha?</p>
                         </span>
                         <span class="dots">
                             <span></span>
                             <span></span>
                             <span></span>
                         </span>
-                        <span class="description">
-                            Acesse nossa plataforma e desfrute de cursos completos para o seu crescimento
+                        <span class="description" style="text-align:left">
+                            <p style="font-size:0.9em; margin-bottom: 2vh;">
+                                Nós te ajudamos com isso:<br />
+                                Preencha seu email abaixo e clique em recuperar senha.
+                            </p>
+                            <p style="font-size:0.9em; margin-bottom: 2vh;">
+                            Verifique sua caixa de entrada para proceder com a mudança de senha.
+                            </p>
+                            <p style="font-size:0.9em; margin-bottom: 2vh;">
+                            Caso não localize o email, por favor verifique o Spam.
+                            </p>
                         </span>
                         <form action="/dist/index.html" method="">
                             <div class="groupForm">
@@ -74,9 +83,10 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, onBeforeMount } from 'vue'
 import { useStore } from 'vuex'
 import { notify } from "@kyvg/vue3-notification"
+import { LOGIN_TITLE } from '@/configs'
 
 export default {
     name: 'ForgetPassword',
@@ -101,6 +111,11 @@ export default {
                 }))
                 .finally(() => loading.value = false)
         }
+
+        onBeforeMount(() => {
+            document.title = LOGIN_TITLE
+        })
+
 
         return {
             email,

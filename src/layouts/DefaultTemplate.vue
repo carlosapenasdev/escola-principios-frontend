@@ -15,6 +15,7 @@ import { onBeforeMount } from 'vue'
 
 import HeaderComponent from './components/HeaderComponent.vue'
 import FooterComponent from './components/FooterComponent.vue'
+import { LOGIN_TITLE } from '@/configs'
 
 export default {
     name: 'DefaultTemplate',
@@ -24,7 +25,7 @@ export default {
             document.body.classList.add('page')
             document.body.classList.add('dark')
 
-            document.title = 'EAD Renovo'
+            document.title = LOGIN_TITLE
         })
     },
 

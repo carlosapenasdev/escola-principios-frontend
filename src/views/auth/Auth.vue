@@ -81,12 +81,12 @@
 </template>
 
 <script>
-import { computed, ref, watch } from 'vue'
+import { computed, ref, watch, onBeforeMount } from 'vue'
 import { useStore } from 'vuex'
 import { notify } from "@kyvg/vue3-notification";
 
 import router from '@/router'
-import { onBeforeMount } from 'vue'
+import { LOGIN_TITLE } from '@/configs'
 
 export default {
     name: 'Auth',
@@ -135,7 +135,7 @@ export default {
         }
 
         onBeforeMount(() => {
-            document.title = 'EAD Renovo'
+            document.title = LOGIN_TITLE
         })
 
         return {

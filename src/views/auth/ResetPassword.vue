@@ -31,7 +31,7 @@
                             >
                         </span>
                         <span>
-                            <p class="welcome-p">Seja muito bem vindo(a)!</p>
+                            <p class="welcome-p">Vamos alterar sua senha</p>
                         </span>
                         <span class="dots">
                             <span></span>
@@ -39,7 +39,9 @@
                             <span></span>
                         </span>
                         <span class="description">
-                            Acesse nossa plataforma e desfrute de cursos completos para o seu crescimento
+                            <p style="font-size:0.9em; margin-bottom: 2vh;">
+                                Preencha seu email abaixo e sua nova senha, depois clique em Mudar senha.
+                            </p>
                         </span>
                         <form action="/dist/index.html" method="">
                             <div class="groupForm">
@@ -74,11 +76,12 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, onBeforeMount } from 'vue'
 import { notify } from "@kyvg/vue3-notification"
 
 import router from '@/router'
 import ResetPasswordService from '@/services/password.reset.service'
+import { LOGIN_TITLE } from '@/configs'
 
 export default {
     name: 'ResetPassword',
@@ -118,6 +121,10 @@ export default {
                 }))
             .finally(() => loading.value = false)
         }
+
+        onBeforeMount(() => {
+            document.title = LOGIN_TITLE
+        })
 
         return {
             auth,
