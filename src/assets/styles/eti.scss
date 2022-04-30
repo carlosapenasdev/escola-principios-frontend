@@ -607,6 +607,12 @@ section .container {
           #height: calc(90vh - #{$trainingSpace});
           #max-height: 755px;
           text-align: center;
+
+          img{
+            @include respond-to("small") {
+              max-width: 200px;
+            }
+          }
           
           iframe {
             height: calc(100vh - (#{$trainingSpace} + 60px));

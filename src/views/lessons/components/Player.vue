@@ -27,15 +27,24 @@
         </div>
       </vue-plyr>
     </div>
-    <div class="qrcodeSpace" v-if="course.modalidade == 'P'">
+    <div class="qrcodeSpace" v-if="course.modalidade == 'P'" style="margin-top:2vh">
+      
       <vue-qrcode
+        v-bind="qrcodeProps" 
+        tag="img"
+        @ready="onReady"
         ref="qrcode"
         v-if="lesson.id"
         :key="lesson.id"
         :value="origin+'/presenca/'+lesson.id"
-        :options="{ width: 200 }"
+        :options="{ width: 400 }"
+        :id="lesson.id"
       >
       </vue-qrcode>
+      
+      <div class="btnDownloadQrCode" style="margin:5vh 0">
+        <a href="#" @click.prevent="downloadImg()" :class="['btn', 'laravel']">Salvar Qrcode</a>
+      </div>
     </div>
   </div>
 
@@ -50,17 +59,40 @@ import { useStore } from "vuex";
 import VuePlyr from 'vue-plyr';
 import VueQrcode from '@chenfengyuan/vue-qrcode';
 import 'vue-plyr/dist/vue-plyr.css';
+
+import { getCurrentInstance } from 'vue'
+
 export default {
   name: "Player",
   components:{
     VuePlyr,
     VueQrcode
   },
+  methods: {
+    onReady(canvas) {
+      this.app.appContext.config.globalProperties.globalVar =  canvas
+    }
+  },
   setup() {
     const store = useStore();
     const origin = window.location.origin;
     const plyr = ref(null);
     const course = computed(() => store.state.courses.courseSelected).value
+    const app = getCurrentInstance()
+    const downloadImg = () => {
+      let globalLocal =  app.appContext.config.globalProperties.globalVar
+      
+      var link = document.createElement("a");
+
+      document.body.appendChild(link);
+
+      link.setAttribute("href", globalLocal.src);
+      link.setAttribute("download", globalLocal.id);
+      link.click();
+
+      console.log('downloadImg');
+      console.log(globalLocal);
+    }
     watch(
       () => store.state.courses.lessonPlayer,
       () => {
@@ -83,9 +115,11 @@ export default {
       }
     );
     return {
+      downloadImg,
       plyr,
       course,
       origin,
+      app,
     };
   },
   data() {
@@ -94,6 +128,7 @@ export default {
     return {
       lesson: lesson,
       player: {},
+      myVar: this.globalVar
     };
   },
   mounted () {
