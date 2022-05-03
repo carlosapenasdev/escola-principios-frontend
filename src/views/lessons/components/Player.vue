@@ -73,7 +73,8 @@ export default {
       this.app.appContext.config.globalProperties.globalVar =  canvas
     }
   },
-  setup() {
+  setup()
+  {
     const store = useStore();
     const origin = window.location.origin;
     const plyr = ref(null);
