@@ -38,7 +38,7 @@
         :key="lesson.id"
         :value="origin+'/presenca/'+lesson.id"
         :options="{ width: 400 }"
-        :id="lesson.id"
+        :id="lesson.url"
       >
       </vue-qrcode>
       
