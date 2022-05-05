@@ -1,5 +1,5 @@
 <template>
-  <notifications />
+  <notifications max="1" duration="-1" ignoreDuplicates="true"/>
   <router-view/>
 </template>
 

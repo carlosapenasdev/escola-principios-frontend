@@ -125,7 +125,14 @@ export default {
             .catch(error => {
                 let msgError = 'Falha na requisição'
 
-                if (error.status === 422) msgError = 'Dados Inválidos'
+                if (error.status === 422){
+                    if (typeof error.data.errors.email !== 'undefined') {
+                        msgError = error.data.errors.email.join()
+                    }
+                    else
+                        msgError = 'Dados Inválidos'
+                        
+                }
                 if (error.status === 404) msgError = 'Usuário Não Encontrado'
 
                 notify({
