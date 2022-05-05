@@ -27,7 +27,7 @@
         </div>
       </vue-plyr>
     </div>
-    <div class="qrcodeSpace" v-if="course.modalidade == 'P'" style="margin-top:2vh">
+    <div class="qrcodeSpace" v-if="course.modalidade == 'P' && lesson.id && user.tipo==1" style="margin-top:2vh">
       
       <vue-qrcode
         v-bind="qrcodeProps" 
@@ -55,6 +55,7 @@
 
 <script>
 import { computed, watch, ref } from "vue";
+import store from "@/store"
 import { useStore } from "vuex";
 import VuePlyr from 'vue-plyr';
 import VueQrcode from '@chenfengyuan/vue-qrcode';
@@ -75,11 +76,12 @@ export default {
   },
   setup()
   {
-    const store = useStore();
-    const origin = window.location.origin;
-    const plyr = ref(null);
-    const course = computed(() => store.state.courses.courseSelected).value
-    const app = getCurrentInstance()
+    const origin  = window.location.origin;
+    const plyr    = ref(null);
+    const course  = computed(() => store.state.courses.courseSelected).value
+    const user    = store.state.users.user
+    const app     = getCurrentInstance()
+
     const downloadImg = () => {
       let globalLocal =  app.appContext.config.globalProperties.globalVar
       
@@ -121,6 +123,7 @@ export default {
       course,
       origin,
       app,
+      user,
     };
   },
   data() {
