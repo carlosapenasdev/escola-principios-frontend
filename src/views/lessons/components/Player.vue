@@ -71,7 +71,44 @@ export default {
   },
   methods: {
     onReady(canvas) {
-      this.app.appContext.config.globalProperties.globalVar =  canvas
+      if(canvas.height == 400)
+      {
+        var newCanvas   = document.createElement("canvas");
+        var ctx         = newCanvas.getContext('2d');
+        var image       = new Image();
+
+        newCanvas.width    = canvas.width
+        newCanvas.height   = canvas.height+(canvas.height/8)
+        ctx.globalCompositeOperation = 'destination-under'
+        ctx.beginPath();
+        ctx.rect(0, 0, newCanvas.width, newCanvas.height);
+        ctx.fillStyle = "white";
+        ctx.fill();
+        let self = this;
+
+        image.onload = function() {
+
+          ctx.drawImage(image, 0, 0);
+          
+          var randomtxt = canvas.id.replace("qrcode-", "").replace(/-/g, " ").toUpperCase();
+          ctx.font = "30px Arial";
+          ctx.fillStyle = "#000000";
+          ctx.strokeStyle = "#fff";
+          let posX = (newCanvas.width/6)
+          let posY = (newCanvas.width)
+          ctx.fillText(randomtxt, posX, posY);
+
+          var dataURL = newCanvas.toDataURL();
+          
+          let data = {
+            src: dataURL,
+            id: canvas.id
+          }
+          canvas.src = dataURL
+          self.app.appContext.config.globalProperties.globalVar =  data
+        };
+        image.src = canvas.src;
+      }
     }
   },
   setup()
@@ -84,17 +121,13 @@ export default {
 
     const downloadImg = () => {
       let globalLocal =  app.appContext.config.globalProperties.globalVar
+      var link        = document.createElement("a");
       
-      var link = document.createElement("a");
-
       document.body.appendChild(link);
 
       link.setAttribute("href", globalLocal.src);
       link.setAttribute("download", globalLocal.id);
       link.click();
-
-      console.log('downloadImg');
-      console.log(globalLocal);
     }
     watch(
       () => store.state.courses.lessonPlayer,
