@@ -119,7 +119,7 @@ export default {
             .then(function(){
                 CourseService.markLessonViewed(props.aula)
                 .then(function(){
-                    router.push({name: 'campus.home'})
+                    router.push({name: 'campus.presenca'})
                 })
             })
             .catch(error => {

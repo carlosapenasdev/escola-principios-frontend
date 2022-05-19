@@ -6,7 +6,7 @@
       </span>
       <span class="title">{{turma.referencia}} - {{turma.course.name}}</span>
       <span class="action">
-        <a href="#" @click.prevent="setTurma" :class="['btn', bgName]">Acessar</a>
+        <a href="#" v-if="turma.id!=''" @click.prevent="setTurma" :class="['btn', bgName]">Acessar</a>
       </span>
     </span>
     <span class="dots">

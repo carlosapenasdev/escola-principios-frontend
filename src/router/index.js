@@ -7,6 +7,7 @@ import Auth from '@/views/auth/Auth.vue'
 import ForgetPassword from '@/views/auth/ForgetPassword.vue'
 import ResetPassword from '@/views/auth/ResetPassword.vue'
 import Presenca from '@/views/lessons/Presenca.vue'
+import PresencaSucesso from '@/views/lessons/PresencaSucesso.vue'
 
 import store from "@/store"
 import { TOKEN_NAME } from "@/configs"
@@ -30,10 +31,16 @@ const routes = [
           path: 'minhas-duvidas',
           name: 'campus.my.supports',
           component: MySupports,
-        }, {
+        },
+        {
           path: '',
           name: 'campus.home',
           component: Turmas
+        }, 
+        {
+          path: '/presenca-sucesso',
+          name: 'campus.presenca',
+          component: PresencaSucesso
         },
       ]
     },

@@ -36,6 +36,7 @@
         ref="qrcode"
         v-if="lesson.id"
         :key="lesson.id"
+        :teste="origin+'/presenca/'+lesson.id"
         :value="origin+'/presenca/'+lesson.id"
         :options="{ width: 400 }"
         :id="'qrcode-'+lesson.url"
