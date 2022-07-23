@@ -22,7 +22,10 @@
           <li
             v-for="lesson in module.lessons"
             :key="lesson.id"
-            :class="{'active' : lesson.id === lessonInPlayer.id}"
+            :class="{
+              'active' : lesson.id === lessonInPlayer.id,
+              'disabled' : lesson.canView === false
+            }"
             @click.prevent="addLessonInPlayer(lesson)">
             <span v-if="lesson.views.length > 0" class="check active fas fa-check"></span>
             <span class="nameLesson">{{ lesson.name }}</span>
@@ -53,6 +56,39 @@ export default {
         const lessonInPlayer = computed(() => store.state.courses.lessonPlayer)
 
         const modules = computed(() => store.state.courses.courseSelected.modules)
+        let licoes = [];
+
+        modules.value.forEach((module) => {
+          module.lessons.forEach((lesson) => {
+            let licao = {
+              id: lesson.id,
+              views: lesson.views.length,
+              canView: false,
+              module: module
+            };
+            licoes.push(licao);
+          });
+        });
+        
+        licoes[0].canView = true;
+        licoes.forEach((licao, index) => {
+          if(licoes[index].views > 0) {
+            showModule.value = licao.module.id
+          }
+          // if(licoes[index+1] !== undefined && licoes[index].views > 0) {
+          //   licoes[index+1].canView = true;
+          // }
+        });
+        
+        modules.value.forEach((module, moduleIndex) => {
+          
+          module.lessons.forEach((lesson, lessonIndex) => {
+            
+            modules.value[moduleIndex].lessons[lessonIndex].canView = true
+            //let filtro = licoes.filter(value => value.id == lesson.id)[0];
+            //modules.value[moduleIndex].lessons[lessonIndex].canView = filtro.canView
+          });
+        });
 
         const toggleModule = function (moduleId)
         {
