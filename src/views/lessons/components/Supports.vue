@@ -1,8 +1,12 @@
 <template>
   <div class="comments" v-show="lesson.name">
     <div class="header">
-      <span class="title">Dúvidas (total: {{ supports.length }}) <span v-if="loading">(Carregando...)</span> </span>
+      <span class="title"
+      v-if="1==2"
+      >
+      Dúvidas (total: {{ supports.length }}) <span v-if="loading">(Carregando...)</span> </span>
       <button class="btn primary"
+        v-if="1==2"
         @click.prevent="openModal">
         <i class="fas fa-plus"></i>
         Enviar nova dúvida
@@ -12,6 +16,7 @@
     <supports/>
 
     <modal-support
+      v-if="1==2"
       :show-modal="modal.showModal"
       :support-reply="modal.supportReply"
       @closeModal="modal.showModal = false">

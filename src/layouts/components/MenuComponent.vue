@@ -5,7 +5,7 @@
                 <li class="animate__animated animate__headShake">
                     <router-link :to="{name: 'campus.home'}">Início</router-link>
                 </li>
-                <li class="animate__animated animate__headShake">
+                <li v-if="1==2" class="animate__animated animate__headShake">
                     <router-link :to="{name: 'campus.my.supports'}">Minhas Dúvidas</router-link>
                 </li>
                 <li class="animate__animated animate__headShake">
