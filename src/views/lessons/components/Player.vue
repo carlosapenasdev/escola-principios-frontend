@@ -108,7 +108,7 @@ export default {
                 'modestbranding':0,
                 'autohide':1,
                 'showinfo':0,
-                'controls':0,
+                'controls':1,
                 'autoplay':1,
                 'fs':1,
                 'rel':0,
