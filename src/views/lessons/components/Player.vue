@@ -10,22 +10,7 @@
         Voltar
       </router-link>
     </div>
-    <div class="videoSpace" v-if="lesson.video && course.modalidade == 'R'">
-      <vue-plyr
-        ref="plyr"
-        @player="setPlayer"
-        :options="options"
-      >
-        <div class="plyr__video-embed">
-          <iframe
-            ref="ifram"
-            :src="lesson.video"
-            allowfullscreen
-            allowtransparency
-            allow="autoplay"
-          ></iframe>
-        </div>
-      </vue-plyr>
+    <div class="videoSpace" id="player" v-if="lesson.video && course.modalidade == 'R'">
     </div>
     <div class="qrcodeSpace" v-if="course.modalidade == 'P' && lesson.id && user.tipo==1" style="margin-top:2vh">
       
@@ -55,19 +40,16 @@
 </template>
 
 <script>
-import { computed, watch, ref } from "vue";
+import { computed } from "vue";
 import store from "@/store"
 import { useStore } from "vuex";
-import VuePlyr from 'vue-plyr';
 import VueQrcode from '@chenfengyuan/vue-qrcode';
-import 'vue-plyr/dist/vue-plyr.css';
 
 import { getCurrentInstance } from 'vue'
 
 export default {
   name: "Player",
   components:{
-    VuePlyr,
     VueQrcode
   },
   methods: {
@@ -110,12 +92,56 @@ export default {
         };
         image.src = canvas.src;
       }
+    },
+    youTube() {
+      var YouTubeIframeLoader = require('youtube-iframe');
+      let self = this
+      YouTubeIframeLoader.load(function(YT) {
+        if(self.playerIframe != null) {
+          self.playerIframe.destroy()
+        }
+        self.playerIframe = new YT.Player('player', {
+              height: '400',
+              width: '100%',
+              videoId: self.lesson.video.replace('https://www.youtube.com/watch?v=', ''),
+              playerVars:{
+                'modestbranding':0,
+                'autohide':1,
+                'showinfo':0,
+                'controls':0,
+                'autoplay':1,
+                'fs':1,
+                'rel':0,
+                'loop':1,
+              },
+              events: {
+                'onReady': self.onPlayerReady,
+                'onStateChange': self.onPlayerStateChange
+              }
+          });
+      });
+    },
+    onPlayerReady(event) {
+      event.target.playVideo();
+    },
+    onPlayerStateChange(event) {
+      var YouTubeIframeLoader = require('youtube-iframe');
+      let self = this
+      YouTubeIframeLoader.load(function(YT) {
+        if (event.data == YT.PlayerState.ENDED && !self.done) {
+            const store = self.$store
+            store.dispatch('markLessonViewed')
+            self.done = true;
+        }
+      });
+    },
+    stopVideo() {
+      this.playerIframe.stopVideo();
     }
   },
   setup()
   {
     const origin  = window.location.origin;
-    const plyr    = ref(null);
     const course  = computed(() => store.state.courses.courseSelected).value
     const user    = store.state.users.user
     const app     = getCurrentInstance()
@@ -130,35 +156,19 @@ export default {
       link.setAttribute("download", globalLocal.id);
       link.click();
     }
-    watch(
-      () => store.state.courses.lessonPlayer,
-      () => {
 
-        if(plyr.value !== null)
-        {
-          const lesson = computed(() => store.state.courses.lessonPlayer);
-          
-          let player = plyr.value.player
-          player.source = {
-            type: 'video',
-            sources: [
-              {
-                src: lesson.value.video,
-                provider: 'youtube',
-              },
-            ],
-          }
-        }
-      }
-    );
     return {
       downloadImg,
-      plyr,
       course,
       origin,
       app,
       user,
     };
+  },
+  watch: {
+    lesson: function () {
+      this.youTube();
+    }
   },
   data() {
     const store = useStore();
@@ -166,18 +176,13 @@ export default {
     return {
       lesson: lesson,
       player: {},
+      playerIframe: null,
+      done:false,
       myVar: this.globalVar
     };
   },
   mounted () {
-    if(this.$refs.plyr !== undefined)
-    {
-      let player = this.$refs.plyr.player
-      player.on('ended', () => {
-        const store = this.$store
-        store.dispatch('markLessonViewed')
-      });
-    }
+    this.youTube();
   }
 };
 </script>
