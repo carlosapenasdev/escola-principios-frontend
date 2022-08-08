@@ -79,6 +79,12 @@ export default {
           //   licoes[index+1].canView = true;
           // }
         });
+        licoes.some(function(licao, index) {
+          if(licoes[index].views <= 0) {
+            showModule.value = licao.module.id
+            return true;
+          }
+        })
         
         modules.value.forEach((module, moduleIndex) => {
           
