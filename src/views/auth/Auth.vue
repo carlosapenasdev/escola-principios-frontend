@@ -21,7 +21,7 @@
                             </p>
                         </span>
                         <span class="copyright fontSmall">
-                            Desenvolvido por - <a href="https://www.linkedin.com/in/carlossantoswd/" target="__blank"><b>Carlos Santos</b></a>
+                            Desenvolvido por - <a href="https://www.linkedin.com/in/carlosapenasdev/" target="__blank"><b>Carlos Santos</b></a>
                         </span>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
                         </span>
                     </div>
                     <span class="copyright fontSmall">
-                        Desenvolvido por - <a href="https://www.linkedin.com/in/carlossantoswd/" target="__blank"><b>Carlos Santos</b></a>
+                        Desenvolvido por - <a href="https://www.linkedin.com/in/carlosapenasdev/" target="__blank"><b>Carlos Santos</b></a>
                     </span>
                 </div>
             </div>
